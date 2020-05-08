@@ -1,0 +1,15 @@
+language: nix
+nix: 2.0.4
+script:
+  - nix-env -iA cachix -f https://cachix.org/api/v1/install
+  - cachix use srid
+  - cachix use smatting
+  - $(nix-build neuron.nix)/bin/neuron rib -d .
+
+addons:
+  artifacts:
+    s3_region: us-east-1
+    paths:
+      - ./.neuron/output
+    target_paths:
+      - /

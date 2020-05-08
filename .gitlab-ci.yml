@@ -1,0 +1,9 @@
+build:
+  image: nixos/nix:latest
+  before_script:
+    - nix-env -iA cachix -f https://cachix.org/api/v1/install
+    - cachix use srid
+    - cachix use smatting
+    - nix-build neuron.nix
+  script:
+    - ./result/bin/neuron rib -d .
