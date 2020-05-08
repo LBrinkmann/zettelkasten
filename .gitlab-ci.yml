@@ -17,5 +17,5 @@ aws:
   script:
     - mkdir ./foo
     - echo "ha" > ./foo/bla.txt
-    - aws s3 sync ./foo $BUCKET
+    - aws s3 sync ./foo s3://$BUCKET
   stage: deploy
