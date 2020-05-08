@@ -1,9 +1,22 @@
-build:
+default:
   image: nixos/nix:latest
   before_script:
     - nix-env -iA cachix -f https://cachix.org/api/v1/install
+    - nix-env -iA awscli -f '<nixpkgs>'
     - cachix use srid
     - cachix use smatting
+
+build:
+  before_script:
     - nix-build neuron.nix
   script:
     - ./result/bin/neuron rib -d .
+
+deploy:
+  script:
+    - mkdir ./foo
+    - echo "ha" > ./foo/bla.txt
+    - aws s3 sync ./foo $BUCKET
+
+stages:
+  - deploy
