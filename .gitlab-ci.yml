@@ -12,7 +12,8 @@ rib:
     - neuron rib -d .
   stage: build
   artifacts:
-    - ./.neuron
+    paths:
+      - ./.neuron
 
 aws:
   before_script:
