@@ -6,17 +6,16 @@ default:
     - cachix use srid
     - cachix use smatting
 
-build:
-  before_script:
-    - nix-build neuron.nix
-  script:
-    - ./result/bin/neuron rib -d .
+# rib:
+#   before_script:
+#     - nix-build neuron.nix
+#   script:
+#     - ./result/bin/neuron rib -d .
+#   stage: build
 
-deploy:
+aws:
   script:
     - mkdir ./foo
     - echo "ha" > ./foo/bla.txt
     - aws s3 sync ./foo $BUCKET
-
-stages:
-  - deploy
+  stage: deploy
